@@ -1,0 +1,45 @@
+#include<iostream>
+#include<queue>
+#include<vector>
+using namespace std;
+class Graph{
+    int v;
+    vector<vector<int>>adj;
+    public:
+    Graph(int ver){
+        v=ver;
+        adj.resize(ver);
+    }
+    void add_edge(int u,int v){
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    void bfs(int src){
+        vector<bool>visited(v,false);
+        queue<int>q;
+        visited[src]=true;
+        q.push(src);
+        while(!q.empty()){
+            int curr=q.front();
+            cout<<curr<<" ";
+            q.pop();
+            for(int n:adj[curr]){
+                if(!visited[n]){
+                    visited[n]=true;
+                    q.push(n);
+                }
+            }
+        }
+    }
+};
+int main(){
+    Graph g(7);
+    g.add_edge(0,1);
+    g.add_edge(0,2);
+    g.add_edge(2,5);
+    g.add_edge(2,6);
+    g.add_edge(1,3);
+    g.add_edge(1,4);
+    g.bfs(1);
+    return 0;
+}
